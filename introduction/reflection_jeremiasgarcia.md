@@ -1,0 +1,6 @@
+When I first opened this repository, the first thing I did was read the directions, however I didnt begin to work on it and mostly skimmed through to get a small idea of what I would be doing.
+The most confusing moment for me was at the very beginning as I was unsure where to begin since I was so overwhelmed with information on Github and struggled to create a copy. 
+Some strategies I used to get me out of situations I found myself stuck in, was simply going to google and asking how to do certain things, like create a copy, or how to propose my changes for when I will have to do that. I also asked friends for help on the off chance they knew anything. I even turned to youtube for help at one point looking up how to make a copy there aswell.
+When deciding what information to read, I first skipped a couple parts, mostly ones that didnt include directions on what to do. However I found myself coming rereading carefully through the directions when I was stuck.
+I now feel more confident about being able to figure out how to perform certain actions on Github after attempting many different times to make a copy.
+Something that is still unclear to me is a part of the purpose where it states "The diagnostic contains tasks that will reveal: How you explore when instructions are incomplete".

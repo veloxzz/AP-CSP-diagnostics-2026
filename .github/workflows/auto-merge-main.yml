@@ -1,0 +1,69 @@
+name: Auto Merge Main into PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  auto-merge-main:
+    runs-on: ubuntu-latest
+    # Only run for PRs from branches in the same repository (not forks)
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Check if last commit is from bot
+        id: check_author
+        run: |
+          if [ "${{ github.event.pull_request.head.sha }}" != "" ]; then
+            AUTHOR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha }}" | \
+              jq -r '.commit.author.name')
+            echo "Last commit author: $AUTHOR"
+            if [ "$AUTHOR" = "github-actions[bot]" ]; then
+              echo "skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping workflow - last commit was made by bot"
+            else
+              echo "skip=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Checkout PR branch
+        if: steps.check_author.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Configure Git
+        if: steps.check_author.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Merge main into PR branch
+        if: steps.check_author.outputs.skip != 'true'
+        run: |
+          git fetch origin main
+          if git merge origin/main --no-edit; then
+            echo "Successfully merged main into PR branch"
+          else
+            echo "::error::Merge conflict detected. Please resolve manually in your PR."
+            exit 1
+          fi
+      
+      - name: Push changes
+        if: steps.check_author.outputs.skip != 'true'
+        run: |
+          if git push origin ${{ github.event.pull_request.head.ref }}; then
+            echo "Successfully pushed merged changes"
+          else
+            echo "::error::Failed to push changes."
+            exit 1
+          fi
