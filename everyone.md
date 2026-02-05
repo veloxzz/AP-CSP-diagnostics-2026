@@ -5,12 +5,12 @@ Type your name, your favorite animal on any of the line below. When you are done
 2. _
 3. Jeremias Garcia, Cat
 4. 
-5. Nathaniel Moran, sharks
+5. 
 6. _
 7. _
 8. _
 9. _
-10. _
+10. Nathaniel Moran, Sharks
 11. _
 12. _
 13. _
