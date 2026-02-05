@@ -1,11 +1,16 @@
 # Group Signature
 Type your name, your favorite animal on any of the line below. When you are done, save and make sure you can see your changes on GitHub.
 
+ main
 1. _Fernando Morales, Turtle
+2. Johnnie Ramirez, Dog
+
+
 2. _
+ main
 3. Jeremias Garcia, Cat
-4. 
-5. 
+4. _
+5. _Aldo Marmolejo, Dog
 6. _
 7. _
 8. _
